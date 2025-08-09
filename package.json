@@ -43,6 +43,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-static": "^3.0.8",
+		"@sveltejs/adapter-vercel": "^5.8.2",
 		"@sveltejs/enhanced-img": "^0.7.0",
 		"svelte-preprocess": "^6.0.3",
 		"svelte-preprocess-markdown": "^2.7.3"
