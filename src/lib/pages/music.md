@@ -4,7 +4,7 @@ title: Music
 permalink: /music/
 order: 2
 ---
-<div>
+<!-- <div>
 {% for post in site.categories.music %}
     <div>
         <a href="{{ post.url }}"><h3>
@@ -16,4 +16,4 @@ order: 2
     </div>
     <br>
 {% endfor %}
-</div>
+</div> -->

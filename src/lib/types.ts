@@ -11,6 +11,19 @@ export type Artist = {
 	socialHandles?: SocialHandle[];
 };
 
+// export type Post = {
+// 	title: string;
+// 	slug: string;
+// 	category: string;
+// 	default?: string;
+// 	date: string;
+// 	metadata?: Record<string, any>;
+// 	content?: string;
+// 	images?: MediaObject[];
+// 	audio?: MediaObject[];
+// 	video?: MediaObject[];
+// };
+
 export type Event = {
 	title: string;
 	slug: string;
@@ -48,12 +61,36 @@ export type Page = {
 	};
 };
 
-export type Home = {
-	highlights?: [
-		{
-			embed: string;
-			title?: string;
-			caption: string;
-		}
-	];
+export type Post = {
+	default?: string;
+	metadata: {
+		highlights: Highlight[];
+	};
 };
+
+export type Highlight = {
+	post?: string;
+	isPost?: boolean;
+	slug?: string;
+	embed?: string;
+	title?: string;
+	caption?: string;
+	link?: string;
+	artist?: string;
+	artist_link?: string;
+	embed_code?: string;
+	source?: string;
+};
+
+export type MenuItem = {
+	title: string;
+	order: number;
+	slug: string;
+}
+
+export type Excerpt = {
+	title: string;
+	category: string;
+	date: string;
+	caption: string;
+}

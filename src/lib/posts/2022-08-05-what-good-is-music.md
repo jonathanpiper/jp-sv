@@ -1,18 +1,23 @@
 ---
 layout: post
 title: What Good is Music?
+date: '2022-08-05'
 category: exhibitions
 titleistitle: 1
+header:
+  url: 'wgim-header.jpg'
+  altText: ''
+  credit: ''
+gallery:
+  location: 'exhibitions/what-good-is-music/'
+short: 'Purpose: To encourage visitors to consider the many roles that music can play in their lives, in their communities, and in the world at large through a series of provocative questions.'
 ---
-![What Good is Music](/assets/images/exhibitions/what-good-is-music/wgim-header.jpg){:class="img-responsive"}
 
 **Opened:** 21 June, 2022
-<br>
+
 **Closed:** February, 2023
 
 **Purpose:** To encourage visitors to consider the many roles that music can play in their lives, in their communities, and in the world at large through a series of provocative questions.
-
-<!--more-->
 
 **Content:** Three primary questions: "What good is music for me?", "What good is music for us?", and "What good is music for the world?". Each question is accompanied by a contextualizing statment, e.g. about how music can be used in daily life for positive outcomes or how music can connect groups of people with external activities or sentiments.
 
@@ -21,27 +26,3 @@ titleistitle: 1
 **Roles:** Conception, script writing, interaction design, fabrication, installation.
 
 The image gallery below includes renders from the design phase of the exhibition, which was performed in Figma and Autodesk Fusion 360.
-
-<div data-nanogallery2 = '{
-    "thumbnailWidth": "auto",
-    "thumbnailBorderVertical": 1,
-    "thumbnailBorderHorizontal": 1,    
-    "thumbnailLabel": {
-        "position": "overImageOnBottom"
-    },
-    "thumbnailAlignment": "center",
-    "thumbnailOpenImage": true,
-    "itemsBaseURL":     "/assets/images/exhibitions/what-good-is-music/"
-  }'>
-
-  <!-- ### gallery content ### -->
-  {% for image in site.static_files %}
-    {% if image.path contains 'assets/images/exhibitions/what-good-is-music' %}
-      {% unless image.path contains 'thumbnails' %}
-        {% unless image.path contains 'header' %}
-          <a href="{{ image.name }}" data-ngthumb="thumbnails/{{ image.basename }}_t.jpg" />
-        {% endunless %}
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
-</div>

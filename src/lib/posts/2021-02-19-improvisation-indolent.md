@@ -1,10 +1,12 @@
 ---
 layout: post
-title: Improvisation Excerpt, Indolent, 2020​/​11​/​27
+title: Improvisation Excerpt, Indolent
 category: music
+date: '2021-02-19'
+source: bandcamp
+embed_code: track=3040401992
+link: https://jonathanpiper.bandcamp.com/track/improvisation-excerpt-indolent-2020-11-27
+artist: Jonathan Piper
+artist_link:
+caption: 'improvisation with tuba and electronics'
 ---
-{% if page.path contains "excerpt" %}
-<iframe style="border: 0; width: 700px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3040401992/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://jonathanpiper.bandcamp.com/track/improvisation-excerpt-indolent-2020-11-27">Improvisation Excerpt, Indolent, 2020/11/27 by Jonathan Piper</a></iframe>
-{% else %}
-<iframe style="border: 0; width: 700px; height: 792px;" src="https://bandcamp.com/EmbeddedPlayer/track=3040401992/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://jonathanpiper.bandcamp.com/track/improvisation-excerpt-indolent-2020-11-27">Improvisation Excerpt, Indolent, 2020/11/27 by Jonathan Piper</a></iframe>
-{% endif %}

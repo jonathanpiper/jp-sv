@@ -2,11 +2,10 @@
 layout: post
 title: Information Architecture in the Museum of Making Music
 category: writing
+date: '2021-08-21'
 titleistitle: 0
 short: But a museum is far more than a collection of stories (and artifacts, of course). It’s also an experience of moving through space and processing content. People move and process differently, which means that we couldn’t just design for one experience. We worked to structure content in a way that would allow any visitor to find what they were looking for, and to tailor their experience based on their needs. There’s a term that’s stuck with me from my previous life in software that seems to sum up this approach&#58; information architecture.
 ---
-<br>
-
 In case you haven’t heard it enough already, the recently renovated Museum of Making Music represents a pretty significant shift. Beyond new galleries, new displays, new interactive instruments, and more, we’ve completely reimagined our storylines. We wanted to step back and focus on our mission to explore the accomplishments and impact of the music and sound products industry. It doesn’t take an industry insider to know that there are *many* accomplishments with *far-ranging* impact. In short, there were a dizzying number of stories for us to choose from!
 
 But a museum is far more than a collection of stories (and artifacts, of course). It’s also an experience of moving through space and processing content. People move and process differently, which means that we couldn’t just design for one experience. We worked to structure content in a way that would allow any visitor to find what they were looking for, and to tailor their experience based on their needs. There’s a term that’s stuck with me from my previous life in software that seems to sum up this approach: information architecture. This can mean different things depending on who you ask, but I like this definition from Peter Morville: “the structural design of shared information environments…the art and science of shaping information products and experiences to support usability and findability.” In other words, how can we organize the wealth of information included in the renovation to make it approachable, digestible, and navigable for as many audiences as possible?

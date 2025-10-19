@@ -1,6 +1,10 @@
 ---
 layout: post
-title: Codex Confiteor, Stay Strange presents Checked Out, 22 October 2018
+title: Stay Strange presents Checked Out
 category: music
+date: '2018-10-22'
+source: youtube
+embed_code: BV9WSk021og
+artist: Codex Confiteor
+artist_link: http://confiteor.cc
 ---
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BV9WSk021og" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

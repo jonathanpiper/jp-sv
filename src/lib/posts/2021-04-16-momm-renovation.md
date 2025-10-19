@@ -3,8 +3,15 @@ layout: post
 title: Museum of Making Music Renovation
 category: exhibitions
 titleistitle: 0
+date: '2021-04-16'
+header: 
+  url: 'momm-header.jpg'
+  altText: 'Gallery introduction panel for Gallery One at Musuem of Making Music'
+  credit: ''
+gallery:
+  location: 'exhibitions/momm-renovation/'
+short: "Purpose: To realign the Museum's core exhibition galleries with stated institutional goal of 'exploring the accomplishments and impact of the music products industry.'"
 ---
-![MoMM Renovation](/assets/images/exhibitions/momm-renovation/momm-header.jpg){:class="img-responsive"}
 
 **Opened:** 15 June, 2021
 
@@ -17,27 +24,3 @@ titleistitle: 0
 **Setting:** 19 distinct displays, 18 of which feature artifacts, primarily musical instruments, and one comprising printed panels with stories from the publishing sector of the industry. 15 touchscreen kiosks with directional speakers containing stories and accompanying images; audiovisual materials including musical excerpts, factory footage, and interviews from the NAMM Oral History program; and artifact information with high-resolution images.
 
 **Roles:** Conception, research, narrative design, object selection, script writing, installation, audio calibration, technology selection and installation.
-
-<div data-nanogallery2 = '{
-    "thumbnailWidth": "auto",
-    "thumbnailBorderVertical": 1,
-    "thumbnailBorderHorizontal": 1,    
-    "thumbnailLabel": {
-        "position": "overImageOnBottom"
-    },
-    "thumbnailAlignment": "center",
-    "thumbnailOpenImage": true,
-    "itemsBaseURL":     "/assets/images/exhibitions/momm-renovation/"
-  }'>
-
-  <!-- ### gallery content ### -->
-  {% for image in site.static_files %}
-    {% if image.path contains 'assets/images/exhibitions/momm-renovation' %}
-      {% unless image.path contains 'thumbnails' %}
-        {% unless image.path contains 'header' %}
-          <a href="{{ image.name }}" data-ngthumb="thumbnails/{{ image.basename }}_t.jpg" />
-        {% endunless %}
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
-</div>

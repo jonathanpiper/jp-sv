@@ -42,9 +42,14 @@
 		]
 	},
 	"dependencies": {
+		"@rollup/plugin-dynamic-import-vars": "^2.1.5",
 		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/adapter-vercel": "^5.8.2",
 		"@sveltejs/enhanced-img": "^0.7.0",
+		"flowbite": "^3.1.2",
+		"flowbite-svelte": "^1.13.4",
+		"remark-comment": "^1.0.0",
+		"svelte-bricks": "^0.3.2",
 		"svelte-preprocess": "^6.0.3",
 		"svelte-preprocess-markdown": "^2.7.3"
 	}

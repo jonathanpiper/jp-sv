@@ -5,8 +5,8 @@ permalink: "/exhibitions/"
 order: 3
 ---
 
-From 2017 to 2023, I curated the exhibitions&#151;both permanent and temporary&#151;at the [NAMM Museum of Making Music (MoMM)](https://www.museumofmakingmusic.org){:target="_blank"} in Carlsbad, CA and, each January, at MoMM's booth at the NAMM Show in Anaheim, CA. My activities have included conception, ideation, research, fieldwork, script writing, object selection, visual design, interaction and experience design, software programming, fabrication, and installation.
-<br/><br/>
+From 2017 to 2023, I curated the exhibitions&#151;both permanent and temporary&#151;at the [NAMM Museum of Making Music (MoMM)](https://www.museumofmakingmusic.org) in Carlsbad, CA and, each January, at MoMM's booth at the NAMM Show in Anaheim, CA. My activities have included conception, ideation, research, fieldwork, script writing, object selection, visual design, interaction and experience design, software programming, fabrication, and installation.
+<!-- <br/><br/>
 <div>
 {% for post in site.categories.exhibitions %}
     <div>
@@ -19,4 +19,4 @@ From 2017 to 2023, I curated the exhibitions&#151;both permanent and temporary&#
     </div>
     <br>
 {% endfor %}
-</div>
+</div> -->

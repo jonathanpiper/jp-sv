@@ -1,11 +1,14 @@
+import dynamicImportVariables from '@rollup/plugin-dynamic-import-vars'
 import adapter from '@sveltejs/adapter-vercel'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import remarkComment from 'remark-comment'
 import { mdsvex } from 'mdsvex'
 
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
 	extensions: ['.md'],
-	smartypants: true,
+	smartypants: {dashes: 'oldschool'},
+	remarkPlugins: [remarkComment],
 	// rehypePlugins: [rehypeExternalLinks]
 }
 
@@ -20,6 +23,11 @@ const config = {
 		alias: {
 			$root: '.' // This is the alias for the root directory
 		}
+	},
+	vite: {
+		plugins: [
+			dynamicImportVariables({})
+		]
 	}
 }
 

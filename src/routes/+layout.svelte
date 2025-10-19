@@ -1,13 +1,20 @@
 <script lang="ts">
-	import '../app.css'
-	import { title } from '$lib/config'
-	import { page } from '$app/state'
-	let { children } = $props()
+	import type { PageProps } from './types';
+	import type { MenuItem } from '$lib/types';
+	import { invalidateAll, onNavigate } from '$app/navigation';
+	import '../app.css';
+	import { title } from '$lib/config';
+	import { page } from '$app/state';
+	let { children, data } = $props();
 </script>
 
 <svelte:head>
-	<title>Sound Praxis</title>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="32fe38b6-b601-4484-ae02-4fb4bb9e7893"></script>
+	<title>Jonathan Piper</title>
+	<script
+		defer
+		src="https://cloud.umami.is/script.js"
+		data-website-id="6c829863-ffa5-429f-bb56-af1d62b3d6af"
+	></script>
 </svelte:head>
 
 <div
@@ -16,24 +23,26 @@
 	<div id="title">
 		<h1><a href="/"><strong>{title}</strong></a><br /></h1>
 	</div>
-	<div id="nav" class="grid auto-cols-fr grid-flow-col gap-4">
-		<h2><a href="/" class={page.url.pathname === '/' ? 'accent' : ''}>About</a></h2>
-		<h2>
-			<a href="/events" class={page.url.pathname.includes('/events') ? 'accent' : ''}>Events</a>
-		</h2>
-		<h2>
-			<a href="/artists" class={page.url.pathname.includes('/artists') ? 'accent' : ''}>Artists</a>
-		</h2>
+	<div id="nav" class="flex gap-8">
+		{#each data.pages as menuItem}
+			<h2>
+				<a
+					href={`/${menuItem.slug}`}
+					class={page.url.pathname === `/${menuItem.slug}` ? 'accent' : ''}
+					data-sveltekit-reload>{menuItem.title}</a
+				>
+			</h2>
+		{/each}
 	</div>
 	{@render children()}
 </div>
 
 <style lang="postcss">
 	:global(body) {
-		--bg-color: #251d1e;
-		--font-color: white;
-		--link-color: #899c22;
-		--accent-color: #fbab25;
+		--bg-color: #eeeef0;
+		--font-color: rgb(29, 29, 29);
+		--link-color: #b65b01;
+		--accent-color: #5025fb;
 		background-color: var(--bg-color);
 		font-family: 'JetBrains Mono', monospace;
 	}
@@ -66,11 +75,11 @@
 	}
 	:global(p) {
 		color: var(--font-color);
-        line-height: 1.75;
+		line-height: 1.75;
 	}
-    :global(li) {
+	:global(li) {
 		color: var(--font-color);
-        line-height: 1.75;
+		line-height: 1.75;
 	}
 	:global(p:not(li p)) {
 		margin-bottom: 10px;
@@ -79,11 +88,11 @@
 		color: var(--link-color);
 	}
 
-    :global(hr) {
+	:global(hr) {
 		color: var(--font-color);
-        opacity: 0.5;
-        width: 80%;
-        margin: 16px auto 20px auto;
+		opacity: 0.5;
+		width: 80%;
+		margin: 16px auto 20px auto;
 	}
 
 	@font-face {

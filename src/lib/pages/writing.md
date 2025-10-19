@@ -4,7 +4,7 @@ title: Writing
 permalink: /writing/
 order: 5
 ---
-<div>
+<!-- <div>
 {% for post in site.categories.writing %}
     <div>
         <a href="{{ post.url }}"><h3>
@@ -16,4 +16,4 @@ order: 5
     </div>
     <br>
 {% endfor %}
-</div>
+</div> -->

@@ -1,71 +1,51 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-	let { data } = $props()
-	console.log(data)
-	const metadata = data.metadata
-	let header = $state('')
+	import { onMount } from 'svelte';
+	import BandcampEmbed from '$lib/components/BandcampEmbed.svelte';
+	import StreamableEmbed from '$lib/components/StreamableEmbed.svelte';
+	import EmbedCaption from '$lib/components/EmbedCaption.svelte';
+	import EmbedWithCaption from '$lib/components/EmbedWithCaption.svelte';
+	import Card from '$lib/components/Card.svelte';
+	let { data } = $props();
+	const metadata = data.metadata;
+	let header = $state('');
+	onMount(async () => {
+		if (metadata.header) {
+			const module = await import(
+				`$lib/assets/images/${metadata.header.url.replace('.jpg', '')}.jpg?enhanced`
+			);
+			header = module.default;
+		}
+	});
 </script>
 
 <svelte:head>
-	<meta
-		name="description"
-	/>
+	<meta name="description" />
 </svelte:head>
 
-<div class="text-lg">
+<div class="text-md">
 	{#if header}
 		<div class="mb-4">
 			<enhanced:img
-				class="w-[100%] place-self-center object-contain sm:max-h-[300px] sm:max-w-full md:max-h-[400px] md:max-w-full"
+				class="w-[100%] place-self-center object-contain sm:max-w-full md:max-w-full"
 				src={header}
-				alt={metadata.images.header.altText}
+				alt={metadata.header.altText}
 			/>
-			{#if metadata.images.header.credit}
-				<p class="justify-self-center"><small>{metadata.images.header.credit}</small></p>
+			{#if metadata.header.credit}
+				<p class="justify-self-center"><small>{metadata.header.credit}</small></p>
 			{/if}
 		</div>
 	{/if}
-	{#if data?.upcomingEvents && data?.upcomingEvents.length > 0}
-		<h1 class="accent">Upcoming Events</h1>
-		<ul>
-			{#each data.upcomingEvents as event}
-				<li class="mb-4">
-					<div class="grid grid-flow-col grid-cols-[100px_1fr] gap-4">
-						<div id="event-image" class="align-items-center grid">
-							{#if event.poster && posters}
-								<a href={`events/${event.slug}`} aria-label={`View details for ${event.title}`}
-									><enhanced:img
-										class="event-image max-h-24"
-										src={posters[`/src/images/${event.poster}`]}
-										alt={`${event.description} poster`}
-									/></a
-								>
-							{/if}
-						</div>
-						<div id="event-info">
-							<a
-								class="text-2xl"
-								href={`events/${event.slug}`}
-								aria-label={`View details for ${event.title}`}>{event.title} | {event.date}</a
-							>
-							<p>
-								{#each event.artists as artist, i}
-									{#if typeof artist === 'string'}
-										{artist}
-									{:else if Array.isArray(artist)}
-										{#each artist as member, i}
-											{member}{i !== artist.length - 1 ? ', ' : ''}
-										{/each}
-									{:else}
-										{artist.name}
-									{/if}
-									{i !== event.artists.length - 1 ? ' | ' : ''}{/each}
-							</p>
-						</div>
-					</div>
-				</li>
+
+	<div class="mb-4">
+		<data.default />
+	</div>
+	{#if metadata.highlights.length > 0}
+		<div class="my-8 flex flex-col gap-8">
+			{#each metadata.highlights as highlight}
+				<Card>
+					<EmbedWithCaption {...highlight} category={data.category} slug={highlight.slug} />
+				</Card>
 			{/each}
-		</ul>
+		</div>
 	{/if}
-	<!-- <data.content /> -->
 </div>
