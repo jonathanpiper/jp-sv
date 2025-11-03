@@ -65,6 +65,7 @@ export type Post = {
 	default?: string;
 	metadata: {
 		highlights: Highlight[];
+		slug?: string;
 	};
 };
 
@@ -86,11 +87,11 @@ export type MenuItem = {
 	title: string;
 	order: number;
 	slug: string;
-}
+};
 
 export type Excerpt = {
 	title: string;
 	category: string;
 	date: string;
 	caption: string;
-}
+};

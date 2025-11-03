@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import BandcampEmbed from '$lib/components/BandcampEmbed.svelte';
-	import StreamableEmbed from '$lib/components/StreamableEmbed.svelte';
-	import EmbedCaption from '$lib/components/EmbedCaption.svelte';
 	import EmbedWithCaption from '$lib/components/EmbedWithCaption.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import HeaderImage from '$lib/components/HeaderImage.svelte';
@@ -35,7 +32,7 @@
 		<div class="my-8 flex flex-col gap-8">
 			{#each metadata.highlights as highlight}
 				<Card>
-					<EmbedWithCaption {...highlight} category={data.category} slug={highlight.slug} />
+					<EmbedWithCaption {...highlight} />
 				</Card>
 			{/each}
 		</div>

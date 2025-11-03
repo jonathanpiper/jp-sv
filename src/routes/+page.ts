@@ -6,13 +6,13 @@ export async function load() {
 		const home = (await import('../lib/pages/index.md')) as Post;
 		const highlights: Highlight[] = await Promise.all(
 			home.metadata.highlights.map(async (h) => {
-				console.log('h', h);
 				if (h.post) {
-					console.log(h.post);
 					const p = (await import(`../lib/posts/${h.post}.md`)) as Post;
+					delete p.metadata.slug
 					return {
 						isPost: true,
-						...p.metadata
+						...p.metadata,
+						slug: h.post
 					} as Highlight;
 				}
 				return h;

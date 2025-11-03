@@ -1,4 +1,5 @@
 <script lang="ts">
+	import EmbedSwitcher from './EmbedSwitcher.svelte';
 	import StreamableEmbed from './StreamableEmbed.svelte';
 	import BandcampEmbed from './BandcampEmbed.svelte';
 	import YouTubeEmbed from './YouTubeEmbed.svelte';
@@ -34,15 +35,7 @@
 			{date}
 		/>
 	{/if}
-	{#if source === 'streamable'}
-		<StreamableEmbed {embed_code} {title} {artist} />
-	{:else if source === 'bandcamp'}
-		<BandcampEmbed {embed_code} {title} {artist} />
-	{:else if source === 'youtube'}
-		<YouTubeEmbed {embed_code} {title} {artist} {link} />
-	{:else}
-		<!-- Handle other sources or default case -->
-	{/if}
+	<EmbedSwitcher {source} {embed_code} {title} {artist} {link} />
 	{#if !captionOnTop}
 		<EmbedCaption
 			{embed_code}
