@@ -1,5 +1,6 @@
 import type { LayoutLoad } from './$types';
 import type { MenuItem } from '../lib/types';
+export const prerender = true;
 
 export const load: LayoutLoad = () => {
     let pages: MenuItem[] = []

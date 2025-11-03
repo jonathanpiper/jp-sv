@@ -2,10 +2,17 @@
 	import type { PageProps } from './types';
 	import type { MenuItem } from '$lib/types';
 	import { invalidateAll, onNavigate } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import '../app.css';
 	import { title } from '$lib/config';
 	import { page } from '$app/state';
 	let { children, data } = $props();
+	onMount(() => {
+		const anchors = document.getElementsByTagName('a');
+		for (let anchor of anchors) {
+			anchor.setAttribute('data-sveltekit-reload', '');
+		}
+	});
 </script>
 
 <svelte:head>
@@ -23,7 +30,7 @@
 	<div id="title">
 		<h1><a href="/"><strong>{title}</strong></a><br /></h1>
 	</div>
-	<div id="nav" class="flex gap-8">
+	<div id="nav" class="flex gap-x-8 max-w-full flex-wrap gap-y-0">
 		{#each data.pages as menuItem}
 			<h2>
 				<a
@@ -93,6 +100,10 @@
 		opacity: 0.5;
 		width: 80%;
 		margin: 16px auto 20px auto;
+	}
+
+	:global(li):not(:last-child) {
+		margin-bottom: 8px;
 	}
 
 	@font-face {

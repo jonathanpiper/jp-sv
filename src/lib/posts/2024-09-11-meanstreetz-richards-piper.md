@@ -10,3 +10,4 @@ artist: Mike Meanstreetz, Stevie Richards, Jonathan Piper
 artist_link:
 caption: 'Performed at Tower Bar.'
 ---
+An all-out improvisation assault with [Stevie Richards](https://www.instagram.com/noiseelectronique/) and [Mike Meanstreetz](https://mikemeanstreetz.bandcamp.com/).

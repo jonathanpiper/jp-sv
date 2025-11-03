@@ -1,4 +1,5 @@
 import type { Post, Highlight } from '$lib/types';
+export const prerender = true;
 
 export async function load() {
 	try {

@@ -1,5 +1,5 @@
 import dynamicImportVariables from '@rollup/plugin-dynamic-import-vars'
-import adapter from '@sveltejs/adapter-vercel'
+import adapter from '@sveltejs/adapter-netlify'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import remarkComment from 'remark-comment'
 import { mdsvex } from 'mdsvex'
