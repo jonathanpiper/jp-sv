@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="{data.category === 'about' ? 'About Jonathan Piper' : `Pages about ${data.category} from Jonathan Piper`}, San Diego-based tubist specializing in experimental and improvisational music." />
+	<meta name="description" content="{data.category === 'about' ? 'About Jonathan Piper' : `Pages about ${data.category} from Jonathan Piper`}, San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
 </svelte:head>
 
 <div>
