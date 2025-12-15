@@ -44,9 +44,14 @@
 						`../../../lib/assets/images/exhibitions/momm-renovation/*.jpg`
 					);
 					break;
-								case 'music/neither-spin-nor-sew/':
+				case 'music/neither-spin-nor-sew/':
 					galleryModule = await import.meta.glob(
 						`../../../lib/assets/images/music/neither-spin-nor-sew/*.jpg`
+					);
+					break;
+				case 'music/and-they-all-of-them/':
+					galleryModule = await import.meta.glob(
+						`../../../lib/assets/images/music/and-they-all-of-them/*.jpg`
 					);
 					break;
 				default:
