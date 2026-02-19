@@ -1,9 +1,5 @@
 <script lang="ts">
-	export let source: string;
-	export let embed_code: string;
-	export let title: string;
-	export let artist: string;
-	export let link: string;
+	let { source, embed_code, title, artist, link, size } = $props();
 
 	import BandcampEmbed from '$lib/components/BandcampEmbed.svelte';
 	import StreamableEmbed from '$lib/components/StreamableEmbed.svelte';
@@ -18,7 +14,7 @@
 </script>
 
 {#if Component}
-	<svelte:component this={Component} {embed_code} {title} {artist} {link} />
+	<Component {embed_code} {title} {artist} {link} {size} />
 {:else}
 	<div class="embed-fallback">Media unavailable</div>
 {/if}

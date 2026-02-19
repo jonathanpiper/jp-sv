@@ -1,7 +1,17 @@
 {
-  "markdownlint.config": {
-    "MD033": {
-      "allowed_elements": ["EmbedCaption", "script", "BandcampEmbed", "StreamableEmbed", "EmbedWithCaption", "hr"]
-    }
-  }
+	"markdownlint.config": {
+		"MD033": {
+			"allowed_elements": [
+				"EmbedCaption",
+				"script",
+				"BandcampEmbed",
+				"StreamableEmbed",
+				"EmbedWithCaption",
+				"hr"
+			]
+		}
+	},
+	"files.associations": {
+		"*.css": "tailwindcss"
+	}
 }

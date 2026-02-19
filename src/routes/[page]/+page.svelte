@@ -16,7 +16,7 @@
 	onMount(async () => {
 		if (metadata.hasOwnProperty('header') && metadata.header) {
 			const module = await import(
-				`../../lib/assets/images/${metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=1000;800;600;400;200`
+				`../../lib/assets/images/${metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;600;400;200`
 			);
 			header = module.default;
 		} else {

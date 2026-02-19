@@ -1,4 +1,3 @@
-import type { Excerpt } from '$lib/types';
 export const prerender = true;
 
 export async function load({ params }) {

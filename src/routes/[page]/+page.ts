@@ -1,5 +1,3 @@
-// import type { Excerpt } from '$lib/types';
-import { render } from 'svelte/server';
 export const prerender = true;
 
 export async function load({ params }) {

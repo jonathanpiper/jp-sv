@@ -9,7 +9,6 @@
 			: '';
 	if (header.length > 0 && title) header += ' - ';
 	if (title) header += isPost ? `<a href="/${category}/${slug}">${title}</a>` : `${title}`;
-	console.log(category, slug)
 </script>
 
 <div class="flex flex-col gap-1">
