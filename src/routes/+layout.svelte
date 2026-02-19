@@ -1,5 +1,4 @@
 <script lang="ts">
-	export const prerender = true;
 	import './layout.css';
 	import type { PageProps } from './types';
 	import type { MenuItem } from '$lib/types';
