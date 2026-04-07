@@ -1,29 +1,11 @@
 <script lang="ts">
-	import BandcampEmbed from '$lib/components/BandcampEmbed.svelte';
-	import StreamableEmbed from '$lib/components/StreamableEmbed.svelte';
-	import EmbedCaption from '$lib/components/EmbedCaption.svelte';
 	import EmbedWithCaption from '$lib/components/EmbedWithCaption.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import HeaderImage from '$lib/components/HeaderImage.svelte';
-	import { invalidateAll } from '$app/navigation';
-	import { onMount, onDestroy } from 'svelte';
-	import { beforeNavigate, onNavigate } from '$app/navigation';
-	import * as config from '$lib/config';
 	import { formatDate } from '$lib/index';
 	let { data } = $props();
 	const metadata = data.metadata;
 	const categoryDesc = `${data.category === 'about' ? 'About Jonathan Piper' : `${metadata.title} by Jonathan Piper`}, San Diego-based tuba player (tubist) specializing in experimental and improvisational music.`;
-	let header = $state(null);
-	onMount(async () => {
-		if (metadata.hasOwnProperty('header') && metadata.header) {
-			const module = await import(
-				`../../lib/assets/images/${metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;600;400;200`
-			);
-			header = module.default;
-		} else {
-			header = null;
-		}
-	});
 </script>
 
 <svelte:head>
@@ -40,8 +22,8 @@
 </svelte:head>
 
 <div>
-	{#if header}
-		<HeaderImage {header} altText={metadata.header.altText} credit={metadata.header.credit} />
+	{#if data.header}
+		<HeaderImage header={data.header} altText={metadata.header.altText} credit={metadata.header.credit} />
 	{/if}
 
 	<data.default />

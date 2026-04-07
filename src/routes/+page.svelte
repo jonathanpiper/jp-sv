@@ -1,19 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import EmbedWithCaption from '$lib/components/EmbedWithCaption.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import HeaderImage from '$lib/components/HeaderImage.svelte';
 	let { data } = $props();
 	const metadata = data.metadata;
-	let header = $state('');
-	onMount(async () => {
-		if (metadata.header) {
-			const module = await import(
-				`../lib/assets/images/${metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;672;504`
-			);
-			header = module.default;
-		}
-	});
 </script>
 
 <svelte:head>
@@ -46,8 +36,8 @@
 
 <div class="text-md">
 	<div class="sm:min-h-[200px] md:min-h-[275px] lg:min-h-[370px]">
-		{#if header}
-			<HeaderImage {header} altText={metadata.header.altText} credit={metadata.header.credit} />
+		{#if data.header}
+			<HeaderImage header={data.header} altText={metadata.header.altText} credit={metadata.header.credit} />
 		{/if}
 	</div>
 	<div class="mb-4">

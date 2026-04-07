@@ -36,11 +36,22 @@ export async function load({ params }) {
 		posts.sort((a, b) => {
 			return -((new Date(a.date) as any) - (new Date(b.date) as any));
 		});
+
+		// Load header image at build time so it's available in prerendered HTML
+		let header = null;
+		if (page.metadata?.header) {
+			const mod = await import(
+				`../../lib/assets/images/${page.metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;600;400;200`
+			);
+			header = mod.default;
+		}
+
 		return {
 			default: page.default,
 			metadata: page.metadata,
 			posts,
-			category: params.page
+			category: params.page,
+			header
 		};
 	} catch (e) {
 		console.error('Error loading page:', e);

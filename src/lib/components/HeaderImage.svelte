@@ -1,6 +1,5 @@
 <script>
 	let { header, altText = '', credit } = $props();
-	console.log(header)
 </script>
 
 <div class="mb-4 h-200px">

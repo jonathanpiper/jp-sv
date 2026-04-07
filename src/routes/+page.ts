@@ -19,9 +19,20 @@ export async function load() {
 			})
 		);
 		home.metadata.highlights = highlights;
+
+		// Load header image at build time so it's available in prerendered HTML
+		let header = null;
+		if (home.metadata.header) {
+			const mod = await import(
+				`../lib/assets/images/${home.metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;672;504`
+			);
+			header = mod.default;
+		}
+
 		return {
 			default: home.default,
-			metadata: home.metadata
+			metadata: home.metadata,
+			header
 		};
 	} catch (e) {
 		console.log(e);
