@@ -2,14 +2,16 @@
 	let { header, altText = '', credit } = $props();
 </script>
 
-<div class="mb-4 h-200px">
-	<enhanced:img
-		fetchpriority="high"
-		class="place-self-center w-auto object-contain sm:max-h-[300px] md:max-h-[400px] lg:max-h-[600px] xl:max-h-[600px] 2xl:max-h-[600px]"
-        sizes="(max-width:1024px) 864px, (max-width:960px) 672px"
-        src={header}
-		alt={altText}
-	/>
+<div class="mb-4">
+	<div class="w-full aspect-[864/472] max-h-[600px] overflow-hidden">
+		<enhanced:img
+			fetchpriority="high"
+			class="w-full h-full object-contain"
+			sizes="(max-width: 1023px) calc(100vw - 2rem), 864px"
+			src={header}
+			alt={altText}
+		/>
+	</div>
 	{#if credit}
 		<p class="justify-self-center"><small>{credit}</small></p>
 	{/if}

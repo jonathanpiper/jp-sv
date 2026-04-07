@@ -59,7 +59,6 @@
 		--accent-color: #5025fb;
 		background-color: var(--bg-color);
 		font-family: 'JetBrains Mono', monospace;
-		font-display: swap;
 	}
 
 	:global(h1) {
@@ -126,9 +125,9 @@
 
 	@font-face {
 		font-family: 'JetBrains Mono';
-		font-style: monospace;
 		font-weight: 500;
 		font-style: normal;
+		font-display: swap;
 		src:
 			local(''),
 			url('/fonts/JetBrainsMono-Regular.woff2?#iefix') format('woff2');
@@ -136,9 +135,9 @@
 
 	@font-face {
 		font-family: 'JetBrains Mono';
-		font-style: monospace;
 		font-weight: 700;
 		font-style: normal;
+		font-display: swap;
 		src:
 			local(''),
 			url('/fonts/JetBrainsMono-Bold.woff2?#iefix') format('woff2');
@@ -146,9 +145,9 @@
 
 	@font-face {
 		font-family: 'JetBrains Mono';
-		font-style: monospace;
 		font-weight: 500;
 		font-style: italic;
+		font-display: swap;
 		src:
 			local(''),
 			url('/fonts/JetBrainsMono-Italic.woff2?#iefix') format('woff2');
