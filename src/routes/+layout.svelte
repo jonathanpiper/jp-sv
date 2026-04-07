@@ -1,5 +1,4 @@
 <script lang="ts">
-	import './layout.css';
 	import type { PageProps } from './types';
 	import type { MenuItem } from '$lib/types';
 	import { invalidateAll, onNavigate } from '$app/navigation';
@@ -20,8 +19,6 @@
 </script>
 
 <svelte:head>
-	<title>Jonathan Piper</title>
-
 	<script
 		defer
 		src="https://cloud.umami.is/script.js"

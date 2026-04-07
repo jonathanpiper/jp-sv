@@ -3,6 +3,9 @@ import type { EntryGenerator } from './$types';
 export const entries: EntryGenerator = () => {
 	return [
 		{ page: 'about' },
+		{ page: 'music' },
+		{ page: 'exhibitions' },
+		{ page: 'writing' },
 	];
 };
 

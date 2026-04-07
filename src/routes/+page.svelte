@@ -9,7 +9,7 @@
 	onMount(async () => {
 		if (metadata.header) {
 			const module = await import(
-				`../lib/assets/images/${metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;800;400;200`
+				`../lib/assets/images/${metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;672;504`
 			);
 			header = module.default;
 		}
@@ -17,10 +17,31 @@
 </script>
 
 <svelte:head>
-	<meta
-		name="description"
-		content="Jonathan Piper is a San Diego-based tuba player (tubist) specializing in experimental and improvisational music."
-	/>
+	<title>Jonathan Piper | Tubist, Experimental Musician, San Diego</title>
+	<meta name="description" content="Jonathan Piper is a San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
+	<link rel="canonical" href="https://www.jonathanpiper.com" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Jonathan Piper | Tubist, Experimental Musician, San Diego" />
+	<meta property="og:description" content="Jonathan Piper is a San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
+	<meta property="og:url" content="https://www.jonathanpiper.com" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Jonathan Piper | Tubist, Experimental Musician, San Diego" />
+	<meta name="twitter:description" content="Jonathan Piper is a San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "Jonathan Piper",
+		"jobTitle": "Tubist",
+		"description": "San Diego-based tuba player specializing in experimental and improvisational music",
+		"url": "https://www.jonathanpiper.com",
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": "San Diego",
+			"addressRegion": "CA",
+			"addressCountry": "US"
+		},
+		"knowsAbout": ["tuba", "experimental music", "improvisational music", "contemporary classical music"]
+	})}</script>`}
 </svelte:head>
 
 <div class="text-md">

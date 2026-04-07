@@ -10,6 +10,27 @@
 	import Masonry from 'svelte-bricks';
 	let { data } = $props();
 	const metadata = data.metadata;
+	const seoDesc = computeSeoDescription(metadata);
+	const canonicalUrl = `${config.url}/${page.params.page}/${page.params.post}`;
+	const jsonLd = JSON.stringify(
+		metadata.category === 'music'
+			? {
+					'@context': 'https://schema.org',
+					'@type': 'MusicRecording',
+					name: metadata.title,
+					byArtist: { '@type': 'MusicGroup', name: metadata.artist ?? 'Jonathan Piper' },
+					datePublished: metadata.date,
+					url: canonicalUrl
+				}
+			: {
+					'@context': 'https://schema.org',
+					'@type': 'CreativeWork',
+					name: metadata.title,
+					author: { '@type': 'Person', name: 'Jonathan Piper' },
+					datePublished: metadata.date,
+					url: canonicalUrl
+				}
+	);
 	let header = $state(null);
 	let gallery = $state(null);
 	onMount(async () => {
@@ -72,7 +93,17 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content={computeSeoDescription(metadata)} />
+	<title>{metadata.title} | Jonathan Piper</title>
+	<meta name="description" content={seoDesc} />
+	<link rel="canonical" href={canonicalUrl} />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="{metadata.title} | Jonathan Piper" />
+	<meta property="og:description" content={seoDesc} />
+	<meta property="og:url" content={canonicalUrl} />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="{metadata.title} | Jonathan Piper" />
+	<meta name="twitter:description" content={seoDesc} />
+	{@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>
 
 <div>

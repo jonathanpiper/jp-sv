@@ -4,9 +4,12 @@ node_modules
 .output
 .vercel
 .netlify
-.wrangler
 /.svelte-kit
 /build
+
+# IDE
+.idea/
+.vscode/
 
 # OS
 .DS_Store
@@ -21,3 +24,6 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# pnpm
+.pnpm-debug.log*

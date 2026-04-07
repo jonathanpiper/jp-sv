@@ -12,6 +12,7 @@
 	import { formatDate } from '$lib/index';
 	let { data } = $props();
 	const metadata = data.metadata;
+	const categoryDesc = `${data.category === 'about' ? 'About Jonathan Piper' : `${metadata.title} by Jonathan Piper`}, San Diego-based tuba player (tubist) specializing in experimental and improvisational music.`;
 	let header = $state(null);
 	onMount(async () => {
 		if (metadata.hasOwnProperty('header') && metadata.header) {
@@ -26,7 +27,16 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="{data.category === 'about' ? 'About Jonathan Piper' : `Pages about ${data.category} from Jonathan Piper`}, San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
+	<title>{metadata.title} | Jonathan Piper</title>
+	<meta name="description" content={categoryDesc} />
+	<link rel="canonical" href="https://www.jonathanpiper.com/{data.category}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{metadata.title} | Jonathan Piper" />
+	<meta property="og:description" content={categoryDesc} />
+	<meta property="og:url" content="https://www.jonathanpiper.com/{data.category}" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="{metadata.title} | Jonathan Piper" />
+	<meta name="twitter:description" content={categoryDesc} />
 </svelte:head>
 
 <div>
