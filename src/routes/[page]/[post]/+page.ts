@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 export const prerender = true;
 
 export async function load({ params }) {
@@ -66,6 +67,7 @@ export async function load({ params }) {
 			gallery
 		};
 	} catch (e) {
-		console.error('Error loading page:', e);
+		console.error('Error loading post:', e);
+		throw error(404, `Post not found: ${params.post}`);
 	}
 }

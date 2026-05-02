@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import type { Post, Highlight } from '$lib/types';
 export const prerender = true;
 
@@ -35,6 +36,7 @@ export async function load() {
 			header
 		};
 	} catch (e) {
-		console.log(e);
+		console.error('Error loading home page:', e);
+		throw error(500, 'Failed to load home page');
 	}
 }

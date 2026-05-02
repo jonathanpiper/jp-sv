@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import type { EntryGenerator } from './$types';
 
 export const entries: EntryGenerator = () => {
@@ -11,6 +12,15 @@ export const entries: EntryGenerator = () => {
 
 
 export const prerender = true;
+
+// Eagerly bundle all root-level page header images so the data is available
+// synchronously in both SSR and browser hydration — no async chunk fetch that
+// could cause a hydration mismatch.
+const pageHeaderImages = import.meta.glob('$lib/assets/images/*.jpg', {
+	eager: true,
+	import: 'default',
+	query: { enhanced: true, w: '864;600;400;200' }
+});
 
 export async function load({ params }) {
 	try {
@@ -37,13 +47,12 @@ export async function load({ params }) {
 			return -((new Date(a.date) as any) - (new Date(b.date) as any));
 		});
 
-		// Load header image at build time so it's available in prerendered HTML
+		// Synchronous lookup — no await needed since the glob is eager.
 		let header = null;
 		if (page.metadata?.header) {
-			const mod = await import(
-				`../../lib/assets/images/${page.metadata.header.url.replace('.jpg', '')}.jpg?enhanced&w=864;600;400;200`
-			);
-			header = mod.default;
+			const filename = page.metadata.header.url;
+			const entry = Object.entries(pageHeaderImages).find(([k]) => k.endsWith(`/${filename}`));
+			if (entry) header = entry[1];
 		}
 
 		return {
@@ -55,5 +64,6 @@ export async function load({ params }) {
 		};
 	} catch (e) {
 		console.error('Error loading page:', e);
+		throw error(404, `Page not found: ${params.page}`);
 	}
 }

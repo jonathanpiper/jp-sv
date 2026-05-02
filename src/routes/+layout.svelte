@@ -1,21 +1,10 @@
 <script lang="ts">
-	import type { PageProps } from './types';
 	import type { MenuItem } from '$lib/types';
-	import { invalidateAll, onNavigate } from '$app/navigation';
-	import { onMount } from 'svelte';
 	import '../app.css';
 	import { title } from '$lib/config';
 	import { page } from '$app/state';
 
 	let { children, data } = $props();
-
-	onMount(() => {
-		const anchors = document.getElementsByTagName('a');
-
-		for (let anchor of anchors) {
-			anchor.setAttribute('data-sveltekit-reload', '');
-		}
-	});
 </script>
 
 <svelte:head>
@@ -40,7 +29,7 @@
 				<a
 					href={`/${menuItem.slug}`}
 					class={page.url.pathname === `/${menuItem.slug}` ? 'accent' : ''}
-					data-sveltekit-reload
+					data-sveltekit-reload={menuItem.slug === 'about' ? '' : undefined}
 				>
 					{menuItem.title}
 				</a>
