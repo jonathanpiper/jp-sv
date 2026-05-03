@@ -17,13 +17,13 @@
 </svelte:head>
 
 <div
-	class="w-sm justify-self-center pt-2 sm:w-xl sm:pt-8 md:w-2xl md:py-12 lg:w-4xl lg:py-24 xl:w-6xl"
+	class="w-full px-4 justify-self-center pt-2 sm:w-xl sm:px-0 sm:pt-8 md:w-2xl md:py-12 lg:w-4xl lg:py-24 xl:w-6xl"
 >
 	<div id="title">
 		<h1><a href="/"><strong>{title}</strong></a><br /></h1>
 	</div>
 
-	<div id="nav" class="flex max-w-full flex-wrap gap-x-8 gap-y-0">
+	<div id="nav" class="flex max-w-full flex-wrap gap-x-4 gap-y-0 sm:gap-x-8">
 		{#each data.pages as menuItem}
 			<h2>
 				<a
@@ -51,10 +51,16 @@
 	}
 
 	:global(h1) {
-		font-size: 2rem;
+		font-size: 1.4rem;
 		font-weight: 500;
 		margin-bottom: 0.5rem;
 		color: var(--font-color);
+	}
+
+	@media (min-width: 640px) {
+		:global(h1) {
+			font-size: 2rem;
+		}
 	}
 
 	:global(.accent) {
@@ -70,10 +76,17 @@
 	}
 
 	:global(h2) {
-		font-size: 1.6rem;
+		font-size: 1.1rem;
 		font-weight: 500;
-		margin-bottom: 1rem;
+		margin-bottom: 0.75rem;
 		color: var(--font-color);
+	}
+
+	@media (min-width: 640px) {
+		:global(h2) {
+			font-size: 1.6rem;
+			margin-bottom: 1rem;
+		}
 	}
 
 	:global(h3) {
