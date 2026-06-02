@@ -7,22 +7,22 @@
 </script>
 
 <svelte:head>
-	<title>Jonathan Piper | Tubist, Experimental Musician, San Diego</title>
-	<meta name="description" content="Jonathan Piper is a San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
+	<title>Jonathan Piper | Experimental Tuba Player & Tubist, San Diego</title>
+	<meta name="description" content="Jonathan Piper is a San Diego-based experimental tuba player and tubist specializing in experimental and improvisational music." />
 	<link rel="canonical" href="https://www.jonathanpiper.com" />
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="Jonathan Piper | Tubist, Experimental Musician, San Diego" />
-	<meta property="og:description" content="Jonathan Piper is a San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
+	<meta property="og:title" content="Jonathan Piper | Experimental Tuba Player & Tubist, San Diego" />
+	<meta property="og:description" content="Jonathan Piper is a San Diego-based experimental tuba player and tubist specializing in experimental and improvisational music." />
 	<meta property="og:url" content="https://www.jonathanpiper.com" />
 	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="Jonathan Piper | Tubist, Experimental Musician, San Diego" />
-	<meta name="twitter:description" content="Jonathan Piper is a San Diego-based tuba player (tubist) specializing in experimental and improvisational music." />
+	<meta name="twitter:title" content="Jonathan Piper | Experimental Tuba Player & Tubist, San Diego" />
+	<meta name="twitter:description" content="Jonathan Piper is a San Diego-based experimental tuba player and tubist specializing in experimental and improvisational music." />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "Person",
 		"name": "Jonathan Piper",
 		"jobTitle": "Tubist",
-		"description": "San Diego-based tuba player specializing in experimental and improvisational music",
+		"description": "San Diego-based experimental tuba player and tubist specializing in experimental and improvisational music",
 		"url": "https://www.jonathanpiper.com",
 		"address": {
 			"@type": "PostalAddress",
@@ -30,7 +30,35 @@
 			"addressRegion": "CA",
 			"addressCountry": "US"
 		},
-		"knowsAbout": ["tuba", "experimental music", "improvisational music", "contemporary classical music"]
+		"knowsAbout": [
+			"tuba", "experimental tuba", "experimental music", "improvisational music",
+			"contemporary classical music", "free improvisation", "extended techniques",
+			"circular breathing", "multiphonics", "drone music", "doom metal",
+			"noise music", "free jazz", "electronics", "museum curation"
+		],
+		"sameAs": [
+			"https://escholarship.org/uc/item/7bq7387s"
+		],
+		"alumniOf": [
+			{ "@type": "CollegeOrUniversity", "name": "University of California, Los Angeles" },
+			{ "@type": "CollegeOrUniversity", "name": "University of California, San Diego" }
+		],
+		"memberOf": [
+			{ "@type": "MusicGroup", "name": "1515", "url": "https://151515.bandcamp.com" },
+			{ "@type": "MusicGroup", "name": "Codex Confiteor" },
+			{ "@type": "MusicGroup", "name": "go by land" }
+		]
+	})}</script>`}
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "WebPage",
+		"name": "Jonathan Piper | Experimental Tuba Player & Tubist, San Diego",
+		"url": "https://www.jonathanpiper.com",
+		"speakable": {
+			"@type": "SpeakableSpecification",
+			"cssSelector": ["h2", ".text-md p"]
+		},
+		"about": { "@type": "Person", "name": "Jonathan Piper" }
 	})}</script>`}
 </svelte:head>
 

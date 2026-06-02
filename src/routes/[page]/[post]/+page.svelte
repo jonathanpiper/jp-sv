@@ -9,41 +9,70 @@
 	import Masonry from 'svelte-bricks';
 	let { data } = $props();
 	const metadata = data.metadata;
-	const seoDesc = computeSeoDescription(metadata);
 	const canonicalUrl = `${config.url}/${page.params.page}/${page.params.post}`;
+	const seoDesc = computeSeoDescription(metadata);
 	const jsonLd = JSON.stringify(
 		metadata.category === 'music'
-			? {
-					'@context': 'https://schema.org',
-					'@type': 'MusicRecording',
-					name: metadata.title,
-					byArtist: { '@type': 'MusicGroup', name: metadata.artist ?? 'Jonathan Piper' },
-					datePublished: metadata.date,
-					url: canonicalUrl
-				}
+			? metadata.artist === 'Jonathan Piper'
+				? {
+						'@context': 'https://schema.org',
+						'@type': 'MusicRecording',
+						name: metadata.title,
+						byArtist: { '@type': 'Person', name: 'Jonathan Piper', url: 'https://www.jonathanpiper.com' },
+						genre: ['experimental music', 'free improvisation', 'drone'],
+						description: seoDesc,
+						datePublished: metadata.date,
+						url: canonicalUrl
+					}
+				: {
+						'@context': 'https://schema.org',
+						'@type': 'MusicRecording',
+						name: metadata.title,
+						byArtist: { '@type': 'MusicGroup', name: metadata.artist },
+						contributor: { '@type': 'Person', name: 'Jonathan Piper', url: 'https://www.jonathanpiper.com' },
+						datePublished: metadata.date,
+						url: canonicalUrl
+					}
 			: {
 					'@context': 'https://schema.org',
-					'@type': 'CreativeWork',
+					'@type': 'ScholarlyArticle',
 					name: metadata.title,
-					author: { '@type': 'Person', name: 'Jonathan Piper' },
+					author: { '@type': 'Person', name: 'Jonathan Piper', url: 'https://www.jonathanpiper.com' },
+					about: 'music scholarship',
 					datePublished: metadata.date,
 					url: canonicalUrl
 				}
 	);
+	const categoryLabels: Record<string, string> = {
+		music: 'Music',
+		writing: 'Writing',
+		exhibitions: 'Exhibitions'
+	};
+	const breadcrumbPostName = metadata.title || (metadata.artist !== 'Jonathan Piper' ? metadata.artist : '');
+	const breadcrumbJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{ '@type': 'ListItem', position: 1, name: 'Jonathan Piper', item: config.url },
+			{ '@type': 'ListItem', position: 2, name: categoryLabels[page.params.page] ?? page.params.page, item: `${config.url}/${page.params.page}` },
+			{ '@type': 'ListItem', position: 3, name: breadcrumbPostName, item: canonicalUrl }
+		]
+	});
 </script>
 
 <svelte:head>
-	<title>{metadata.title} | Jonathan Piper</title>
+	<title>{metadata.title || metadata.artist !== 'Jonathan Piper' ? metadata.artist : ''} | Jonathan Piper</title>
 	<meta name="description" content={seoDesc} />
 	<link rel="canonical" href={canonicalUrl} />
 	<meta property="og:type" content="article" />
-	<meta property="og:title" content="{metadata.title} | Jonathan Piper" />
+	<meta property="og:title" content="{metadata.title || metadata.artist !== 'Jonathan Piper' ? metadata.artist : ''} | Jonathan Piper" />
 	<meta property="og:description" content={seoDesc} />
 	<meta property="og:url" content={canonicalUrl} />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="{metadata.title} | Jonathan Piper" />
 	<meta name="twitter:description" content={seoDesc} />
 	{@html `<script type="application/ld+json">${jsonLd}</script>`}
+	{@html `<script type="application/ld+json">${breadcrumbJsonLd}</script>`}
 </svelte:head>
 
 <div>

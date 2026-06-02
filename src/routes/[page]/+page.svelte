@@ -5,7 +5,13 @@
 	import { formatDate } from '$lib/index';
 	let { data } = $props();
 	const metadata = data.metadata;
-	const categoryDesc = `${data.category === 'about' ? 'About Jonathan Piper' : `${metadata.title} by Jonathan Piper`}, San Diego-based tuba player (tubist) specializing in experimental and improvisational music.`;
+	const categoryDescMap: Record<string, string> = {
+		about: 'About Jonathan Piper — San Diego-based experimental tuba player, tubist, creative technologist, and former museum curator.',
+		music: 'Music by Jonathan Piper — experimental tuba and electronics, free improvisation, drone, and noise. Recordings and live performances.',
+		writing: 'Writing by Jonathan Piper — music scholarship including a dissertation on doom metal, conference papers on metal and digital media.',
+		exhibitions: 'Museum exhibitions curated by Jonathan Piper at the NAMM Museum of Making Music (MoMM) in Carlsbad, California, 2017–2023.'
+	};
+	const categoryDesc = categoryDescMap[data.category] ?? `${metadata.title} by Jonathan Piper, San Diego-based experimental tuba player.`;
 </script>
 
 <svelte:head>
