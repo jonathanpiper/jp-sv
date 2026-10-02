@@ -13,15 +13,11 @@
 
 	import BandcampEmbed from '$lib/components/BandcampEmbed.svelte';
 	import BunnyEmbed from '$lib/components/BunnyEmbed.svelte';
-	// TODO: remove (and delete StreamableEmbed.svelte) once `pnpm migrate-streamable` has moved
-	// every post to Bunny
-	import StreamableEmbed from '$lib/components/StreamableEmbed.svelte';
 	import YouTubeEmbed from '$lib/components/YouTubeEmbed.svelte';
 
 	const registry = {
 		bandcamp: BandcampEmbed,
 		bunny: BunnyEmbed,
-		streamable: StreamableEmbed,
 		youtube: YouTubeEmbed
 	};
 	const Component = $derived(registry[source as keyof typeof registry]);
