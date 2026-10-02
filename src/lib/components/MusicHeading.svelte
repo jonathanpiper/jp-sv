@@ -1,6 +1,7 @@
 <script lang="ts">
   export let metadata: any;
   import { page } from '$app/stores'; // or pass isArtistPage in
+  import { titleHtml } from '$lib/index';
   const isArtistPage = $page.url.pathname === `/${metadata.category}/${metadata.slug}`;
 </script>
 
@@ -13,6 +14,6 @@
     {metadata.artist}
   {/if}
   {#if metadata.title}
-    {#if metadata.artist && metadata.artist !== 'Jonathan Piper'}{" — "}{/if}<em>{metadata.title}</em>
+    {#if metadata.artist && metadata.artist !== 'Jonathan Piper'}{" — "}{/if}<em>{@html titleHtml(metadata.title)}</em>
   {/if}
 </h2>

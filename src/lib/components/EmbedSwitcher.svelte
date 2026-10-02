@@ -11,6 +11,7 @@
 	};
 	let { source, embed_code, title, artist, performer }: Props = $props();
 
+	import { titleText } from '$lib/index';
 	import BandcampEmbed from '$lib/components/BandcampEmbed.svelte';
 	import BunnyEmbed from '$lib/components/BunnyEmbed.svelte';
 	import YouTubeEmbed from '$lib/components/YouTubeEmbed.svelte';
@@ -24,7 +25,8 @@
 </script>
 
 {#if Component}
-	<Component {embed_code} {title} {artist} {performer} />
+	<!-- Plain-text title: the players only use it for accessible labels -->
+	<Component {embed_code} title={titleText(title)} {artist} {performer} />
 {:else}
 	<div class="embed-fallback">Media unavailable</div>
 {/if}

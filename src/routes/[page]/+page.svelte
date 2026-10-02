@@ -2,28 +2,29 @@
 	import EmbedWithCaption from '$lib/components/EmbedWithCaption.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import HeaderImage from '$lib/components/HeaderImage.svelte';
-	import { formatDate } from '$lib/index';
+	import { formatDate, titleHtml, titleText } from '$lib/index';
 	let { data } = $props();
 	const metadata = data.metadata;
+	const pageTitle = titleText(metadata.title);
 	const categoryDescMap: Record<string, string> = {
 		about: 'About Jonathan Piper — San Diego-based experimental tuba player, tubist, creative technologist, and former museum curator.',
 		music: 'Music by Jonathan Piper — experimental tuba and electronics, free improvisation, drone, and noise. Recordings and live performances.',
 		writing: 'Writing by Jonathan Piper — music scholarship including a dissertation on doom metal, conference papers on metal and digital media.',
 		exhibitions: 'Museum exhibitions curated by Jonathan Piper at the NAMM Museum of Making Music (MoMM) in Carlsbad, California, 2017–2023.'
 	};
-	const categoryDesc = categoryDescMap[data.category] ?? `${metadata.title} by Jonathan Piper, San Diego-based experimental tuba player.`;
+	const categoryDesc = categoryDescMap[data.category] ?? `${pageTitle} by Jonathan Piper, San Diego-based experimental tuba player.`;
 </script>
 
 <svelte:head>
-	<title>{metadata.title} | Jonathan Piper</title>
+	<title>{pageTitle} | Jonathan Piper</title>
 	<meta name="description" content={categoryDesc} />
 	<link rel="canonical" href="https://www.jonathanpiper.com/{data.category}" />
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="{metadata.title} | Jonathan Piper" />
+	<meta property="og:title" content="{pageTitle} | Jonathan Piper" />
 	<meta property="og:description" content={categoryDesc} />
 	<meta property="og:url" content="https://www.jonathanpiper.com/{data.category}" />
 	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="{metadata.title} | Jonathan Piper" />
+	<meta name="twitter:title" content="{pageTitle} | Jonathan Piper" />
 	<meta name="twitter:description" content={categoryDesc} />
 </svelte:head>
 
@@ -45,7 +46,7 @@
 							<h3>
 								<a
 									href={`${data.category}/${post.slug}`}
-									class={post.titleistitle === 1 ? 'italic' : ''}>{@html post.title}</a
+									class={post.titleistitle === 1 ? 'italic' : ''}>{@html titleHtml(post.title)}</a
 								>
 							</h3>
 							<span class="w-48 text-end text-gray-900">{formatDate(post.date)}</span>

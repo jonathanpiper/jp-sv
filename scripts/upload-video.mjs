@@ -4,13 +4,14 @@
 // The Bunny title ("{artist} - {title}", or "{artist}, {date}" when untitled) and description
 // meta tag come from the post's frontmatter, the same way migrate-streamable.mjs names videos.
 // After uploading, the post's frontmatter gets `source: bunny` and `embed_code: <guid>` (replacing
-// any existing source/embed_code, or added if the post had none), then sync-bunny-thumbs.mjs runs
-// to fetch the poster - Bunny is usually still encoding at that point, so re-run
-// `pnpm sync-bunny` a few minutes later.
+// any existing source/embed_code, or added if the post had none). It then waits for Bunny to
+// finish encoding and runs sync-bunny-thumbs.mjs to download the poster. With --no-wait it skips
+// the wait; run `pnpm sync-bunny` once encoding is done.
 //
 // Usage:
 //   node scripts/upload-video.mjs <post-slug> <video-file>
 //   node scripts/upload-video.mjs 2026-03-28-1515 ~/Movies/1515.mov --dry-run
+//   node scripts/upload-video.mjs 2026-03-28-1515 ~/Movies/1515.mov --no-wait
 //
 // Bunny credentials come from .env.local - see scripts/lib/bunny.mjs.
 
@@ -20,7 +21,14 @@ import { PassThrough } from 'node:stream';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { apiKey, bunny, findVideoByTitle, libraryId, setDescription } from './lib/bunny.mjs';
+import {
+	apiKey,
+	bunny,
+	findVideoByTitle,
+	libraryId,
+	setDescription,
+	waitForEncoding
+} from './lib/bunny.mjs';
 import {
 	bunnyDescriptionFor,
 	bunnyTitleFor,
@@ -31,9 +39,12 @@ import {
 
 const [slug, videoFile] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const dryRun = process.argv.includes('--dry-run');
+const noWait = process.argv.includes('--no-wait');
 
 if (!slug || !videoFile) {
-	console.error('Usage: node scripts/upload-video.mjs <post-slug> <video-file> [--dry-run]');
+	console.error(
+		'Usage: node scripts/upload-video.mjs <post-slug> <video-file> [--dry-run] [--no-wait]'
+	);
 	process.exit(1);
 }
 if (!dryRun && (!apiKey || !libraryId)) {
@@ -152,7 +163,23 @@ async function main() {
 	await setDescription(created.guid, description);
 
 	await writeFile(postFile, pointPostAt(await readFile(postFile, 'utf8'), created.guid));
-	console.log(`   ${path.basename(postFile)} now embeds bunny ${created.guid}\n`);
+	console.log(`   ${path.basename(postFile)} now embeds bunny ${created.guid}`);
+
+	// Wait for Bunny to finish encoding so the poster can be downloaded straight away. Stopping
+	// here (Ctrl-C) is safe: the post already points at the video, so just run
+	// `pnpm sync-bunny` later.
+	if (!noWait) {
+		console.log(
+			'   waiting for Bunny to finish encoding (Ctrl-C to stop, then run pnpm sync-bunny later)'
+		);
+		try {
+			await waitForEncoding(created.guid);
+		} catch (err) {
+			console.log(`   ✗ ${err.message}`);
+			process.exit(1);
+		}
+	}
+	console.log('');
 
 	const syncScript = path.join(
 		path.dirname(fileURLToPath(import.meta.url)),

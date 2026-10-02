@@ -5,6 +5,7 @@ header:
   credit: ''
   altText: 'Jonathan Piper and tuba'
 highlights:
+  - post: 2026-04-25-oracle-egg
   - post: 2025-07-25-1515-1515
   - post: 2025-06-21-and-they-all-of-them
   - post: 2019-01-26-syncope

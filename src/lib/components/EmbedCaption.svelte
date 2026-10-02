@@ -1,7 +1,7 @@
 <script lang="ts">
 	let { embed_code, title, artist, link, caption, artist_link, isPost, category, slug, date } =
 		$props();
-	import { formatDate } from '$lib/index';
+	import { formatDate, titleHtml } from '$lib/index';
 	let header = artist_link
 		? `<a href="${artist_link}" target="_blank">${artist}</a>`
 		: artist !== 'Jonathan Piper'
@@ -23,9 +23,7 @@
 						{@html ' - '}
 					{/if}
 					{#if title}
-						<em>
-							{title}
-						</em>
+						<em>{@html titleHtml(title)}</em>
 					{/if}
 				</a>
 			</h3>

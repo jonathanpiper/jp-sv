@@ -115,3 +115,33 @@ export async function findVideoByTitle(title) {
 	);
 	return result.items?.find((v) => v.title === title) ?? null;
 }
+
+/** Bunny's video status codes for "encoding failed" and "upload failed" */
+const STATUS_FAILED = new Set([5, 6]);
+
+/**
+ * Checks a video every `intervalMs` until Bunny has finished encoding it, printing progress on
+ * one line. Resolves with the video once finished; throws if encoding fails or `timeoutMs` runs
+ * out. (Bunny can also call a webhook when encoding finishes, but this site has no server to
+ * receive one, and the poster has to be downloaded into the repo locally anyway.)
+ */
+export async function waitForEncoding(guid, { intervalMs = 15_000, timeoutMs = 60 * 60_000 } = {}) {
+	const deadline = Date.now() + timeoutMs;
+	for (;;) {
+		const video = await bunny('GET', `/library/${libraryId}/videos/${guid}`);
+		if (video.status === STATUS_FINISHED) {
+			process.stdout.write(`\r   encoding: done${' '.repeat(20)}\n`);
+			return video;
+		}
+		if (STATUS_FAILED.has(video.status)) {
+			process.stdout.write('\n');
+			throw new Error(`Bunny reports encoding failed (status ${video.status}) for ${guid}`);
+		}
+		if (Date.now() > deadline) {
+			process.stdout.write('\n');
+			throw new Error(`still encoding after ${Math.round(timeoutMs / 60_000)} minutes`);
+		}
+		process.stdout.write(`\r   encoding: ${video.encodeProgress ?? 0}%   `);
+		await new Promise((resolve) => setTimeout(resolve, intervalMs));
+	}
+}

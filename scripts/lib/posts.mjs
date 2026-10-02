@@ -6,7 +6,7 @@
 
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { libDir } from './site.mjs';
+import { libDir, siteLib } from './site.mjs';
 
 /** src/lib/posts */
 export const postsDir = path.join(libDir, 'posts');
@@ -112,17 +112,19 @@ export const plainText = (text = '') =>
 
 /**
  * The title a post's video gets on Bunny: "{artist} - {title}", or "{artist}, {date}" for
- * untitled performances. The upload and migrate scripts both use it, and look videos up by it to
- * avoid duplicates, so it must stay stable.
+ * untitled performances, with the title as plain text ({upright} braces and HTML entities
+ * resolved, see titleText in src/lib/index.ts). The upload and migrate scripts both use it, and
+ * look videos up by it to avoid duplicates, so it must stay stable.
  */
 export const bunnyTitleFor = ({ artist, title, date }) =>
-	title ? `${artist} - ${title}` : `${artist}, ${date}`;
+	title ? `${artist} - ${siteLib.titleText(title)}` : `${artist}, ${date}`;
 
 /**
  * The `description` meta tag a post's video gets on Bunny. When a `performer` is given, `artist`
  * is the composer (as in the recital post), so the credit reads "… by {composer}, performed by …".
  */
-export const bunnyDescriptionFor = ({ artist, performer, title, date, caption }) => {
+export const bunnyDescriptionFor = ({ artist, performer, title: rawTitle, date, caption }) => {
+	const title = rawTitle && siteLib.titleText(rawTitle);
 	let credit;
 	if (performer) {
 		credit = `${title ? `${title} by ${artist}` : artist}, performed ${date} by ${performer} (tuba).`;
