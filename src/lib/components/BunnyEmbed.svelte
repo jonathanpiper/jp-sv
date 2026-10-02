@@ -1,6 +1,8 @@
 <script lang="ts">
-	// YouTube video as a click-to-play facade (same as BunnyEmbed): a self-hosted poster and a play
-	// button, with the privacy-enhanced YouTube player only created once the visitor presses play.
+	// Bunny Stream video as a click-to-play facade: a self-hosted poster and a play button, with
+	// the Bunny player iframe only created once the visitor presses play (it then autoplays). Until
+	// then nothing loads from Bunny's servers.
+	import { bunnyLibraryId } from '$lib/config';
 	import { describeVideo, videoThumbnail } from '$lib/videoThumbs';
 	import PlayButton from './PlayButton.svelte';
 
@@ -14,10 +16,9 @@
 <div class="relative aspect-video w-full overflow-hidden bg-neutral-900">
 	{#if playing}
 		<iframe
-			title="YouTube video player: {label}"
-			src="https://www.youtube-nocookie.com/embed/{embed_code}?autoplay=1"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerpolicy="strict-origin-when-cross-origin"
+			title="Video player: {label}"
+			src="https://iframe.mediadelivery.net/embed/{bunnyLibraryId}/{embed_code}?autoplay=true&preload=true&responsive=true"
+			allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
 			allowfullscreen
 			class="absolute inset-0 size-full border-0"
 		></iframe>

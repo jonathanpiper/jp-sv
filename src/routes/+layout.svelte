@@ -17,7 +17,7 @@
 </svelte:head>
 
 <div
-	class="w-full px-4 justify-self-center pt-2 sm:w-xl sm:px-0 sm:pt-8 md:w-2xl md:py-12 lg:w-4xl lg:py-24 xl:w-6xl"
+	class="w-full mx-auto px-4 justify-self-center pt-2 sm:max-w-xl sm:px-6 sm:pt-8 md:max-w-2xl md:py-12 md:px-6 lg:max-w-4xl lg:py-24 lg:px-8 xl:max-w-6xl"
 >
 	<div id="title">
 		<h1><a href="/"><strong>{title}</strong></a><br /></h1>

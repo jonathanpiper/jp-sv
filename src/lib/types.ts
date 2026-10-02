@@ -95,3 +95,6 @@ export type Excerpt = {
 	date: string;
 	caption: string;
 };
+
+/** A responsive image imported with `?enhanced`, as accepted by <enhanced:img src={…}> */
+export type Picture = Exclude<import('svelte/elements').SvelteHTMLElements['enhanced:img']['src'], string | undefined>;

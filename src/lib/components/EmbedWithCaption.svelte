@@ -1,8 +1,5 @@
 <script lang="ts">
 	import EmbedSwitcher from './EmbedSwitcher.svelte';
-	import StreamableEmbed from './StreamableEmbed.svelte';
-	import BandcampEmbed from './BandcampEmbed.svelte';
-	import YouTubeEmbed from './YouTubeEmbed.svelte';
 	import EmbedCaption from './EmbedCaption.svelte';
 	let {
 		captionOnTop,
@@ -10,6 +7,7 @@
 		embed_code,
 		title,
 		artist,
+		performer,
 		link,
 		caption,
 		artist_link,
@@ -35,7 +33,7 @@
 			{date}
 		/>
 	{/if}
-	<EmbedSwitcher {source} {embed_code} {title} {artist} {link} />
+	<EmbedSwitcher {source} {embed_code} {title} {artist} {performer} />
 	{#if !captionOnTop}
 		<EmbedCaption
 			{embed_code}
