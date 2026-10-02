@@ -4,9 +4,10 @@
 // The Bunny title ("{artist} - {title}", or "{artist}, {date}" when untitled) and description
 // meta tag come from the post's frontmatter, the same way migrate-streamable.mjs names videos.
 // After uploading, the post's frontmatter gets `source: bunny` and `embed_code: <guid>` (replacing
-// any existing source/embed_code, or added if the post had none). It then waits for Bunny to
-// finish encoding and runs sync-bunny-thumbs.mjs to download the poster. With --no-wait it skips
-// the wait; run `pnpm sync-bunny` once encoding is done.
+// any existing source/embed_code, or added if the post had none). It then runs
+// sync-bunny-thumbs.mjs, which waits for Bunny to finish encoding and downloads the poster. With
+// --no-wait (passed on to sync-bunny) it skips the wait; run `pnpm sync-bunny` once encoding is
+// done.
 //
 // Usage:
 //   node scripts/upload-video.mjs <post-slug> <video-file>
@@ -21,14 +22,7 @@ import { PassThrough } from 'node:stream';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-	apiKey,
-	bunny,
-	findVideoByTitle,
-	libraryId,
-	setDescription,
-	waitForEncoding
-} from './lib/bunny.mjs';
+import { apiKey, bunny, findVideoByTitle, libraryId, setDescription } from './lib/bunny.mjs';
 import {
 	bunnyDescriptionFor,
 	bunnyTitleFor,
@@ -165,27 +159,18 @@ async function main() {
 	await writeFile(postFile, pointPostAt(await readFile(postFile, 'utf8'), created.guid));
 	console.log(`   ${path.basename(postFile)} now embeds bunny ${created.guid}`);
 
-	// Wait for Bunny to finish encoding so the poster can be downloaded straight away. Stopping
-	// here (Ctrl-C) is safe: the post already points at the video, so just run
-	// `pnpm sync-bunny` later.
-	if (!noWait) {
-		console.log(
-			'   waiting for Bunny to finish encoding (Ctrl-C to stop, then run pnpm sync-bunny later)'
-		);
-		try {
-			await waitForEncoding(created.guid);
-		} catch (err) {
-			console.log(`   ✗ ${err.message}`);
-			process.exit(1);
-		}
-	}
 	console.log('');
 
+	// sync-bunny waits for Bunny to finish encoding, then downloads the poster. Stopping it
+	// (Ctrl-C) is safe: the post already points at the video, so just run `pnpm sync-bunny` later.
 	const syncScript = path.join(
 		path.dirname(fileURLToPath(import.meta.url)),
 		'sync-bunny-thumbs.mjs'
 	);
-	spawnSync(process.execPath, [syncScript], { stdio: 'inherit' });
+	const sync = spawnSync(process.execPath, [syncScript, ...(noWait ? ['--no-wait'] : [])], {
+		stdio: 'inherit'
+	});
+	process.exitCode = sync.status ?? 1;
 }
 
 main();

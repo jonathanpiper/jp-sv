@@ -3,20 +3,29 @@
 // src/lib/assets/images/video-thumbs/<embed code>.jpg, so the video embeds can show a self-hosted,
 // enhanced:img poster and load nothing from Bunny or YouTube until the visitor presses play.
 //
-// Bunny only has a thumbnail once it has finished encoding a video; those still processing are
-// reported, so re-run later. Existing thumbnails are left alone (delete one to re-download it),
-// and thumbnails no post uses any more are removed. Safe to re-run any time.
+// Bunny only has a thumbnail once it has finished encoding a video, so for any still encoding
+// this waits until they finish (Ctrl-C to stop waiting and re-run later), or with --no-wait just
+// reports them. Existing thumbnails are left alone (delete one to re-download it), and thumbnails
+// no post uses any more are removed. Safe to re-run any time.
 //
 // Usage:
 //   node scripts/sync-bunny-thumbs.mjs             # download missing thumbnails
-//   node scripts/sync-bunny-thumbs.mjs --dry-run   # report only
+//   node scripts/sync-bunny-thumbs.mjs --no-wait   # skip videos still encoding instead of waiting
+//   node scripts/sync-bunny-thumbs.mjs --dry-run   # report only (never waits)
 //
 // Bunny credentials come from .env.local - see scripts/lib/bunny.mjs.
 
 import { existsSync } from 'node:fs';
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { STATUS_FINISHED, apiKey, bunny, downloadThumbnail, libraryId } from './lib/bunny.mjs';
+import {
+	STATUS_FINISHED,
+	apiKey,
+	bunny,
+	downloadThumbnail,
+	libraryId,
+	waitForEncoding
+} from './lib/bunny.mjs';
 import { loadEmbeds } from './lib/posts.mjs';
 import { libDir } from './lib/site.mjs';
 
@@ -24,6 +33,8 @@ import { libDir } from './lib/site.mjs';
 const thumbsDir = path.join(libDir, 'assets/images/video-thumbs');
 
 const dryRun = process.argv.includes('--dry-run');
+// A dry run never waits, since it wouldn't download anything at the end
+const noWait = dryRun || process.argv.includes('--no-wait');
 
 /**
  * Downloads a YouTube video's largest available thumbnail. maxresdefault only exists for HD
@@ -62,9 +73,13 @@ async function main() {
 			if (source === 'bunny') {
 				const video = await bunny('GET', `/library/${libraryId}/videos/${code}`);
 				if (video.status !== STATUS_FINISHED) {
-					console.log(`… ${code} (${file}): still encoding on Bunny - re-run later`);
-					counts.pending++;
-					continue;
+					if (noWait) {
+						console.log(`… ${code} (${file}): still encoding on Bunny - re-run later`);
+						counts.pending++;
+						continue;
+					}
+					console.log(`… ${code} (${file}): waiting for Bunny to finish encoding (Ctrl-C to stop)`);
+					await waitForEncoding(code);
 				}
 				if (!dryRun) await downloadThumbnail(code, dest);
 			} else if (!dryRun) {
